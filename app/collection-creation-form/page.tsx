@@ -40,7 +40,7 @@ export default function CollectionCreationForm() {
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="description">Description</Label>
-                <Textarea id="description" />
+                <Textarea id="description" required />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="category">Category</Label>

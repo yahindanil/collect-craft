@@ -10,7 +10,9 @@ export default function Home() {
         <Link href={"/login"}>
           <Button variant="outline">Login</Button>
         </Link>
-        <Username />
+        <Link href={"/profile"}>
+          <Username />
+        </Link>
       </div>
       <div>
         <CreateCollectionButton />

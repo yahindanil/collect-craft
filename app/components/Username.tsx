@@ -8,7 +8,7 @@ export default async function UserAvatar() {
 
   const { data, error } = await supabase.auth.getUser();
 
-  if (error || !data?.user) {
+  if (error || !data?.user || !data.user.email) {
     return (
       <Link href={"/login"}>
         <Button variant="outline">Login</Button>

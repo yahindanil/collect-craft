@@ -26,13 +26,13 @@ export default async function CollectionCreationForm() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
 
-  async function insertCollection() {
-    const { error: error1 } = await supabase.from("collections").insert({
-      name: "Denmark",
-      description: "sdfsdsdf",
-      user_id: data.user.id,
-    });
-  }
+  // async function insertCollection() {
+  //   const { error: error1 } = await supabase.from("collections").insert({
+  //     name: "Denmark",
+  //     description: "sdfsdsdf",
+  //     user_id: data.user.id,
+  //   });
+  // }
 
   return (
     <div className="wrapper">

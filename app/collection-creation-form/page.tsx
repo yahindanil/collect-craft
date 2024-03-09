@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +22,18 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function CollectionCreationForm() {
+export default async function CollectionCreationForm() {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  async function insertCollection() {
+    const { error: error1 } = await supabase.from("collections").insert({
+      name: "Denmark",
+      description: "sdfsdsdf",
+      user_id: data.user.id,
+    });
+  }
+
   return (
     <div className="wrapper">
       <Card className="w-[380px] wx-auto mt-[40px]">
@@ -49,10 +61,10 @@ export default function CollectionCreationForm() {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
+                    <SelectItem value="stuff">Stuff</SelectItem>
                     <SelectItem value="books">Books</SelectItem>
                     <SelectItem value="signs">Signs</SelectItem>
                     <SelectItem value="silverware">Silverware</SelectItem>
-                    <SelectItem value="toys">Toys</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

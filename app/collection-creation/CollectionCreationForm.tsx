@@ -31,6 +31,9 @@ export default function CollectionCreationForm({ userId }: { userId: any }) {
   const [category, setCategory] = useState("");
 
   const insertCollection = async () => {
+    if (!collectionName || !collectionDescription || !category) {
+      return;
+    }
     const { error } = await supabase.from("collections").insert([
       {
         name: collectionName,
@@ -74,37 +77,17 @@ export default function CollectionCreationForm({ userId }: { userId: any }) {
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="category">Category</Label>
-                <Select required>
+                <Select required value={category} onValueChange={setCategory}>
                   <SelectTrigger id="category">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem
-                      value="stuff"
-                      onClick={() => setCategory("stuff")}
-                    >
-                      Stuff
-                    </SelectItem>
-                    <SelectItem
-                      value="books"
-                      onClick={() => setCategory("books")}
-                    >
-                      Books
-                    </SelectItem>
-                    <SelectItem
-                      value="signs"
-                      onClick={() => setCategory("signs")}
-                    >
-                      Signs
-                    </SelectItem>
-                    <SelectItem
-                      value="silverware"
-                      onClick={() => setCategory("silverware")}
-                    >
-                      Silverware
-                    </SelectItem>
+                    <SelectItem value="stuff">Stuff</SelectItem>
+                    <SelectItem value="books">Books</SelectItem>
+                    <SelectItem value="signs">Signs</SelectItem>
+                    <SelectItem value="silverware">Silverware</SelectItem>
                   </SelectContent>
-                </Select>{" "}
+                </Select>
               </div>
             </div>
           </CardContent>

@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function CollectionCreationForm({ userId }) {
+export default function CollectionCreationForm({ userId }: { userId: any }) {
   const supabase = createClient();
   const [collectionName, setCollectionName] = useState("");
   const [collectionDescription, setCollectionDescription] = useState("");

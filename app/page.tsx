@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Username from "./components/Username";
 import CreateCollectionButton from "./components/CreateCollectionButton";
-import CollectionList from "./components/CollectionList";
+import CollectionsList from "./components/CollectionsList";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
         <CreateCollectionButton />
       </div>
       <div>
-        <CollectionList />
+        <CollectionsList />
       </div>
     </main>
   );

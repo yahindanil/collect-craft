@@ -1,10 +1,10 @@
 import React from "react";
-import CollectionList from "../components/CollectionList";
+import CollectionsList from "../components/CollectionsList";
 
 export default function page() {
   return (
     <div className="wrapper">
-      <CollectionList />
+      <CollectionsList />
     </div>
   );
 }

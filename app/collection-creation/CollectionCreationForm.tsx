@@ -34,6 +34,7 @@ export default function CollectionCreationForm({ userId }: { userId: any }) {
     if (!collectionName || !collectionDescription || !category) {
       return;
     }
+
     const { error } = await supabase.from("collections").insert([
       {
         name: collectionName,

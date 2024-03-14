@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
-export default async function CollectionList() {
+export default async function CollectionsList() {
   const supabase = createClient();
 
   const { data: collections, error } = await supabase
@@ -26,7 +26,7 @@ export default async function CollectionList() {
       <h2 className="text-center mb-4 font-bold text-3xl">Collections</h2>
       {collections?.map((collection) => (
         <div key={collection.name} className="mb-4">
-          <Link href={"#"}>
+          <Link href={`/collections/${collection.id}`}>
             <Card className="w-full mx-auto">
               <CardHeader>
                 <CardTitle>{collection.name}</CardTitle>

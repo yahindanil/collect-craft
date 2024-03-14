@@ -2,11 +2,12 @@ import React from "react";
 import { createClient } from "@/utils/supabase/client";
 import CreateItemButton from "./CreateItemButton";
 import ItemsListServer from "./ItemsListServer";
+import { Collection } from "@/types/types";
 
 export default async function CollectionPage({
   params,
 }: {
-  params: { collectionId: string };
+  params: { collectionId: Collection["id"] };
 }) {
   const { collectionId } = params;
   const supabase = createClient();

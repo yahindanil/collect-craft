@@ -14,9 +14,11 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 export default function CreateItem({ collectionId }: { collectionId: string }) {
   const supabase = createClient();
+  const router = useRouter();
   const [itemName, setItemName] = useState("");
 
   const insertItem = async () => {
@@ -34,6 +36,8 @@ export default function CreateItem({ collectionId }: { collectionId: string }) {
     if (error) {
       console.error("Error inserting collection:", error.message);
     }
+
+    router.refresh();
   };
 
   return (

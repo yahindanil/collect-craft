@@ -3,14 +3,12 @@ import Link from "next/link";
 import Username from "./components/Username";
 import CreateCollectionButton from "./components/CreateCollectionButton";
 import CollectionsList from "./components/CollectionsList";
-import NavMenu from "./components/NavMenu";
+import NavMenu from "./components/navMenu/NavMenuClint";
 
 export default function Home() {
   return (
     <div>
-      <header className="wrapper">
-        <NavMenu />
-      </header>
+      <header className="wrapper"></header>
       <main className="wrapper">
         {/* <div className="flex justify-end pt-[40px] mb-[30px]">
         <Username />

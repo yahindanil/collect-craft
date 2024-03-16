@@ -1,7 +1,6 @@
 import React from "react";
 import CollectionEditForm from "./CollectionEditForm";
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 import { Collection } from "@/types/types";
 
 export const dynamic = "force-dynamic";

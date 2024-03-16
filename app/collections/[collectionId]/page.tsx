@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import CreateItemButton from "./CreateItemButton";
-import ItemsListServer from "./ItemsListServer";
+import ItemsListServer from "./itemsList/ItemsListServer";
 import { Collection } from "@/types/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import ItemCard from "./ItemCard";
 
 export const dynamic = "force-dynamic";
 
@@ -13,18 +14,20 @@ export default async function CollectionPage({
 }: {
   params: { collectionId: Collection["id"] };
 }) {
-  // const router = useRouter();
   const { collectionId } = params;
   const supabase = createClient();
   const test = true;
-
-  const { data: user, error: userError } = await supabase.auth.getUser();
 
   const { data: collection, error: collectionError } = await supabase
     .from("collections")
     .select()
     .eq("id", collectionId)
     .single();
+
+  const { data: items, error: itemsError } = await supabase
+    .from("items")
+    .select()
+    .eq("collection_id", collectionId);
 
   if (!collection) {
     return (
@@ -41,6 +44,7 @@ export default async function CollectionPage({
         <div className="mb-3">
           <CreateItemButton collectionId={collection.id} />
         </div>
+        {/* Тут нужно релизовать что бы только владелец коллекции мог видеть эту кнопку */}
         {test && (
           <div>
             <Link href={`/collections/${collection.id}/collection-edit`}>
@@ -50,7 +54,9 @@ export default async function CollectionPage({
         )}
       </div>
       <div>
-        <ItemsListServer collectionId={collection.id} />
+        {items?.map((item) => (
+          <ItemCard key={item.id} item={item} collectionId={collection.id} />
+        ))}
       </div>
     </div>
   );

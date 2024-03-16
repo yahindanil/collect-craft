@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Username from "./components/Username";
-import CreateCollectionButton from "./components/CreateCollectionButton";
-import CollectionsList from "./components/CollectionsList";
+import CreateCollectionButton from "./components/collections/CreateCollectionButton";
+import CollectionsList from "./components/collections/CollectionsList";
 import NavMenu from "./components/navMenu/NavMenuClint";
 
 export default function Home() {

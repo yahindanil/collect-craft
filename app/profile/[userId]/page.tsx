@@ -1,7 +1,6 @@
 import React from "react";
-import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import UsersCollectionList from "./UsersCollectionList";
+import CollectionCard from "@/app/components/collections/CollectionCard";
 
 export default async function personalProfilePage({
   params,
@@ -11,12 +10,17 @@ export default async function personalProfilePage({
   const { userId } = params;
   const supabase = createClient();
 
-  const { data: UserCollections, error } = await supabase
+  const { data: userCollections, error } = await supabase
     .from("collections")
     .select()
     .eq("user_id", userId);
 
-  console.log(UserCollections);
-
-  return <UsersCollectionList UserCollections={UserCollections} />;
+  return (
+    <div className="mb-4 wrapper">
+      <h2 className="text-center mb-4 font-bold text-3xl">Your collections</h2>
+      {userCollections?.map((collection) => (
+        <CollectionCard key={collection.id} collection={collection} />
+      ))}
+    </div>
+  );
 }

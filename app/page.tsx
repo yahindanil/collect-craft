@@ -1,6 +1,6 @@
 import React from "react";
 import CollectionsList from "./components/collections/CollectionsList";
-import LatestItems from "./components/LatestItems";
+import LatestItems from "./components/LastItems/LatestItems";
 
 export default async function Home() {
   return (

@@ -20,7 +20,7 @@ export default function CollectionCard({
     <div>
       <div key={collection.name} className="mb-4">
         <Link href={`/collections/${collection.id}`}>
-          <Card className="w-full mx-auto">
+          <Card className="w-full mx-auto hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none">
             <CardHeader>
               <CardTitle>{collection.name}</CardTitle>
             </CardHeader>

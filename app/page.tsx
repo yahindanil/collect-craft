@@ -8,7 +8,7 @@ export default async function Home() {
       <header className="wrapper"></header>
       <main className="wrapper">
         <div>
-          <CollectionsList />
+          <LatestItems />
         </div>
       </main>
     </div>

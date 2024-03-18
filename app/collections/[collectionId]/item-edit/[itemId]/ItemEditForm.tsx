@@ -33,8 +33,6 @@ export default function ItemEditForm({ item }: { item: Item }) {
 
   const [itemName, setItemName] = useState(item.name);
 
-  console.log(itemName);
-
   const editItem = async () => {
     if (!itemName) {
       return;
@@ -50,6 +48,12 @@ export default function ItemEditForm({ item }: { item: Item }) {
     if (error) {
       console.error("Error editing item:", error.message);
     }
+
+    window.location.href = `/collections/${item.collection_id}`;
+  };
+
+  const deleteItem = async () => {
+    const { error } = await supabase.from("items").delete().eq("id", item.id);
 
     window.location.href = `/collections/${item.collection_id}`;
   };
@@ -78,6 +82,9 @@ export default function ItemEditForm({ item }: { item: Item }) {
             <Link href={`/collections/${item.collection_id}`}>
               <Button variant="outline">Cancel</Button>
             </Link>
+            <Button type="button" variant="destructive" onClick={deleteItem}>
+              Delete
+            </Button>
             <Button type="button" onClick={editItem}>
               Edit
             </Button>

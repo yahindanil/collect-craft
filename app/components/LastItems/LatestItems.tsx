@@ -1,9 +1,6 @@
 import React from "react";
 import { createClient } from "@/utils/supabase/server";
-import CollectionCard from "../collections/CollectionCard";
-import ItemCard from "@/app/collections/[collectionId]/ItemCard";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import CollectionNameServer from "./CollectionNameServer";
 
 import {

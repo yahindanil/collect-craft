@@ -1,6 +1,6 @@
 import React from "react";
-import CollectionsList from "./components/collections/CollectionsList";
 import LatestItems from "./components/LastItems/LatestItems";
+import BiggestCollections from "./components/BiggestCollections";
 
 export default async function Home() {
   return (
@@ -8,6 +8,7 @@ export default async function Home() {
       <header className="wrapper"></header>
       <main className="wrapper">
         <div>
+          <BiggestCollections />
           <LatestItems />
         </div>
       </main>

@@ -36,7 +36,7 @@ export default function NavMenuClient({ user }: { user: User }) {
           <NavigationMenuItem>
             <Link href="/login" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Login
+                Log in
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

@@ -16,10 +16,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 
+const wait = () => new Promise((resolve) => setTimeout(resolve, 150));
+
 export default function CreateItem({ collectionId }: { collectionId: string }) {
   const supabase = createClient();
   const router = useRouter();
   const [itemName, setItemName] = useState("");
+  const [open, setOpen] = React.useState(false);
 
   const insertItem = async () => {
     if (!itemName) {
@@ -42,7 +45,7 @@ export default function CreateItem({ collectionId }: { collectionId: string }) {
 
   return (
     <div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild className="w-full">
           <Button>Create item</Button>
         </DialogTrigger>
@@ -53,25 +56,32 @@ export default function CreateItem({ collectionId }: { collectionId: string }) {
               Make changes to your profile here. Click save when youre done.
             </DialogDescription> */}
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input
-                id="name"
-                className="col-span-3"
-                required
-                value={itemName}
-                onChange={(e) => setItemName(e.target.value)}
-              />
+          <form
+            onSubmit={(event) => {
+              wait().then(() => setOpen(false));
+              event.preventDefault();
+            }}
+          >
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  Name
+                </Label>
+                <Input
+                  id="name"
+                  className="col-span-3"
+                  required
+                  value={itemName}
+                  onChange={(e) => setItemName(e.target.value)}
+                />
+              </div>
             </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit" onClick={insertItem}>
-              Add item
-            </Button>
-          </DialogFooter>
+            <DialogFooter>
+              <Button type="submit" onClick={insertItem}>
+                Add item
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import CreateItemButton from "./CreateItemButton";
-import ItemsListServer from "./itemsList/ItemsListServer";
 import { Collection } from "@/types/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,8 @@ export default async function CollectionPage({
 }) {
   const { collectionId } = params;
   const supabase = createClient();
-  const test = true;
+
+  const { data: user, error } = await supabase.auth.getUser();
 
   const { data: collection, error: collectionError } = await supabase
     .from("collections")
@@ -29,6 +29,11 @@ export default async function CollectionPage({
     .select()
     .eq("collection_id", collectionId);
 
+  let isOwner = false;
+  if (user.user && user.user.id === collection.user_id) {
+    isOwner = true;
+  }
+
   if (!collection) {
     return (
       <div className="wrapper">
@@ -40,22 +45,26 @@ export default async function CollectionPage({
   return (
     <div className="wrapper">
       <h1 className="text-center mb-4 font-bold text-3xl">{collection.name}</h1>
-      <div className="mb-3">
+      {isOwner && (
         <div className="mb-3">
-          <CreateItemButton collectionId={collection.id} />
-        </div>
-        {/* Тут нужно релизовать что бы только владелец коллекции мог видеть эту кнопку */}
-        {test && (
+          <div className="mb-3">
+            <CreateItemButton collectionId={collection.id} />
+          </div>
           <div>
             <Link href={`/collections/${collection.id}/collection-edit`}>
               <Button className="w-full">Edit collection</Button>
             </Link>
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <div>
         {items?.map((item) => (
-          <ItemCard key={item.id} item={item} collectionId={collection.id} />
+          <ItemCard
+            key={item.id}
+            item={item}
+            collectionId={collection.id}
+            isOwner={isOwner}
+          />
         ))}
       </div>
     </div>

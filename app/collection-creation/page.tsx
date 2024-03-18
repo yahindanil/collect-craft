@@ -10,7 +10,7 @@ export default async function CollectionCreation() {
     redirect("/");
   }
 
-  const userId = data.user.id;
+  const user = data.user;
 
-  return <CollectionCreationForm userId={userId} />;
+  return <CollectionCreationForm user={user} />;
 }

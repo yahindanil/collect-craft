@@ -23,15 +23,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { User } from "@/types/types";
 
-export default function CollectionCreationForm({ userId }: { userId: string }) {
+export default function CollectionCreationForm({ user }: { user: any }) {
   const supabase = createClient();
   const [collectionName, setCollectionName] = useState("");
   const [collectionDescription, setCollectionDescription] = useState("");
   const [category, setCategory] = useState("");
+  const username = user.email.split("@")[0];
 
   const insertCollection = async () => {
-    if (!collectionName || !collectionDescription || !category) {
+    if (!collectionName || !collectionDescription || !category || !user) {
       return;
     }
 
@@ -40,13 +42,16 @@ export default function CollectionCreationForm({ userId }: { userId: string }) {
         name: collectionName,
         description: collectionDescription,
         category: category,
-        user_id: userId,
+        user_id: user.id,
+        username: username,
       },
     ]);
 
     if (error) {
       console.error("Error inserting collection:", error.message);
     }
+
+    window.location.href = `/profile/${user.id}`;
   };
 
   return (

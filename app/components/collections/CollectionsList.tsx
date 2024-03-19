@@ -8,7 +8,8 @@ export default async function CollectionsList() {
 
   const { data: collections, error: collectionError } = await supabase
     .from("collections")
-    .select();
+    .select()
+    .order("created_at", { ascending: false });
 
   if (collectionError) {
     console.log("Error fetching data:", collectionError.message);

@@ -6,6 +6,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ItemCard from "./ItemCard";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 export const dynamic = "force-dynamic";
 
 export default async function CollectionPage({
@@ -45,15 +54,24 @@ export default async function CollectionPage({
   return (
     <div className="wrapper">
       <h1 className="text-center mb-4 font-bold text-3xl">{collection.name}</h1>
+
+      <Card className="w-full mx-auto mb-3">
+        <CardHeader>
+          <CardTitle>Description</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardDescription>{collection.description}</CardDescription>
+        </CardContent>
+      </Card>
       {isOwner && (
         <div className="mb-3">
           <div className="mb-3">
-            <CreateItemButton collectionId={collection.id} />
-          </div>
-          <div>
             <Link href={`/collections/${collection.id}/collection-edit`}>
               <Button className="w-full">Edit collection</Button>
             </Link>
+          </div>
+          <div className="mb-3">
+            <CreateItemButton collectionId={collection.id} />
           </div>
         </div>
       )}

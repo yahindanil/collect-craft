@@ -11,6 +11,14 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { Collection } from "@/types/types";
 
+const truncateDescription = (description: string, maxLength = 250) => {
+  if (description.length > maxLength) {
+    return description.substring(0, maxLength) + "...";
+  } else {
+    return description;
+  }
+};
+
 export default function CollectionCard({
   collection,
 }: {
@@ -25,7 +33,9 @@ export default function CollectionCard({
               <CardTitle>{collection.name}</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription>{collection.description}</CardDescription>
+              <CardDescription>
+                {truncateDescription(collection.description)}
+              </CardDescription>
             </CardContent>
             <CardFooter>
               <div className="flex justify-between w-full">

@@ -5,5 +5,9 @@ export default function CollectionNameClient({
 }: {
   collectionName: any;
 }) {
+  if (!collectionName) {
+    return;
+  }
+
   return <div>{collectionName.name}</div>;
 }

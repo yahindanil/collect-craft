@@ -80,12 +80,19 @@ export default function ItemEditForm({ item }: { item: Item }) {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Link href={`/collections/${item.collection_id}`}>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" className="w-[80px]">
+                Cancel
+              </Button>
             </Link>
-            <Button type="button" variant="destructive" onClick={deleteItem}>
+            <Button
+              className="w-[80px]"
+              type="button"
+              variant="destructive"
+              onClick={deleteItem}
+            >
               Delete
             </Button>
-            <Button type="button" onClick={editItem}>
+            <Button className="w-[80px]" type="button" onClick={editItem}>
               Edit
             </Button>
           </CardFooter>

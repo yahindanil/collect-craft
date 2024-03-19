@@ -14,7 +14,8 @@ export default async function personalProfilePage({
   const { data: userCollections, error } = await supabase
     .from("collections")
     .select()
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
   return (
     <div className="mb-4 wrapper">

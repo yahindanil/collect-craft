@@ -61,6 +61,20 @@ export default function CollectionEditForm({
     window.location.href = `/collections/${collection.id}`;
   };
 
+  const deleteCollectionAndItems = async () => {
+    const { error: itmesDeleteError } = await supabase
+      .from("items")
+      .delete()
+      .eq("collection_id", collection.id);
+
+    const { error: collectionDeleteError } = await supabase
+      .from("collections")
+      .delete()
+      .eq("id", collection.id);
+
+    window.location.href = `/collections`;
+  };
+
   return (
     <div className="wrapper">
       <Card className="w-[380px] wx-auto mt-[40px]">
@@ -106,10 +120,20 @@ export default function CollectionEditForm({
           </CardContent>
           <CardFooter className="flex justify-between">
             <Link href={`/collections/${collection.id}`}>
-              <Button variant="outline">Cancel</Button>
+              <Button className="w-[80px]" variant="outline">
+                Cancel
+              </Button>
             </Link>
-            <Button type="button" onClick={editCollection}>
-              Create
+            <Button
+              className="w-[80px]"
+              type="button"
+              variant="destructive"
+              onClick={deleteCollectionAndItems}
+            >
+              Delete
+            </Button>
+            <Button className="w-[80px]" type="button" onClick={editCollection}>
+              Edit
             </Button>
           </CardFooter>
         </form>

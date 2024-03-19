@@ -29,8 +29,11 @@ export default function CollectionCard({
       <div key={collection.name} className="mb-4">
         <Link href={`/collections/${collection.id}`}>
           <Card className="w-full mx-auto hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none">
-            <CardHeader>
+            <CardHeader className="">
               <CardTitle>{collection.name}</CardTitle>
+              {/* <div className="text-sm text-muted-foreground">
+                <p>{collection.category}</p>
+              </div> */}
             </CardHeader>
             <CardContent>
               <CardDescription>

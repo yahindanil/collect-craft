@@ -98,7 +98,7 @@ export default function CollectionCreationForm({ user }: { user: any }) {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Link href={"/"}>
+            <Link href={"/collections"}>
               <Button variant="outline">Cancel</Button>
             </Link>
             <Button type="button" onClick={insertCollection}>

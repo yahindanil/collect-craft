@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
+import { insertFiles } from "@/app/utils/insertFile";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -20,23 +20,38 @@ import {
 export default function CreateItem({
   collection,
 }: {
-  collection: { id: string };
+  collection: { id: string; user_id: string };
 }) {
   const supabase = createClient();
-  const router = useRouter();
   const [itemName, setItemName] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (e: any) => {
+    setSelectedFile(e.target.files[0]);
+  };
 
   const insertItem = async () => {
     if (!itemName) {
       return;
     }
 
-    const { error } = await supabase.from("items").insert([
-      {
-        name: itemName,
-        collection_id: collection.id,
-      },
-    ]);
+    const { data: newItem, error } = await supabase
+      .from("items")
+      .insert([
+        {
+          name: itemName,
+          collection_id: collection.id,
+        },
+      ])
+      .select()
+      .single();
+
+    await insertFiles({
+      itemId: newItem!.id,
+      file: selectedFile,
+      userId: collection.user_id,
+    });
+
     if (error) {
       console.error("Error inserting collection:", error.message);
     }
@@ -61,6 +76,7 @@ export default function CreateItem({
                   onChange={(e) => setItemName(e.target.value)}
                 />
               </div>
+              <input type="file" onChange={handleFileChange} accept="image/*" />
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">

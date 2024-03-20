@@ -71,7 +71,10 @@ export default async function CollectionPage({
             </Link>
           </div>
           <div className="mb-3">
-            <CreateItemButton collectionId={collection.id} />
+            <Link href={`/collections/${collection.id}/item-creation`}>
+              <Button className="w-full">Create item</Button>
+            </Link>
+            {/* <CreateItemButton collectionId={collection.id} /> */}
           </div>
         </div>
       )}

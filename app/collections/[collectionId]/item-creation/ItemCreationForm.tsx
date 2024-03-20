@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Item } from "@/types/types";
-import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -15,45 +16,38 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-export default function ItemEditForm({ item }: { item: Item }) {
+export default function CreateItem({
+  collection,
+}: {
+  collection: { id: string };
+}) {
   const supabase = createClient();
   const router = useRouter();
+  const [itemName, setItemName] = useState("");
 
-  const [itemName, setItemName] = useState(item.name);
-
-  const editItem = async () => {
+  const insertItem = async () => {
     if (!itemName) {
       return;
     }
 
-    const { error } = await supabase
-      .from("items")
-      .update({
+    const { error } = await supabase.from("items").insert([
+      {
         name: itemName,
-      })
-      .eq("id", item.id);
-
+        collection_id: collection.id,
+      },
+    ]);
     if (error) {
-      console.error("Error editing item:", error.message);
+      console.error("Error inserting collection:", error.message);
     }
-
-    window.location.href = `/collections/${item.collection_id}`;
-  };
-
-  const deleteItem = async () => {
-    const { error } = await supabase.from("items").delete().eq("id", item.id);
-
-    window.location.href = `/collections/${item.collection_id}`;
+    window.location.href = `/collections/${collection.id}`;
   };
 
   return (
     <div className="wrapper">
       <Card className="w-[380px] wx-auto mt-[40px]">
         <CardHeader>
-          <CardTitle>Edit item</CardTitle>
+          <CardTitle>Create item</CardTitle>
         </CardHeader>
         <form>
           <CardContent>
@@ -70,21 +64,13 @@ export default function ItemEditForm({ item }: { item: Item }) {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Link href={`/collections/${item.collection_id}`}>
+            <Link href={`/collections/${collection.id}`}>
               <Button variant="outline" className="w-[80px]">
                 Cancel
               </Button>
             </Link>
-            <Button
-              className="w-[80px]"
-              type="button"
-              variant="destructive"
-              onClick={deleteItem}
-            >
-              Delete
-            </Button>
-            <Button className="w-[80px]" type="button" onClick={editItem}>
-              Edit
+            <Button className="w-[80px]" type="button" onClick={insertItem}>
+              Create
             </Button>
           </CardFooter>
         </form>

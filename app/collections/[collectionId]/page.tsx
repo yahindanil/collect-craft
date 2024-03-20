@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { createClient } from "@/utils/supabase/server";
-import CreateItemButton from "./CreateItemButton";
 import { Collection } from "@/types/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

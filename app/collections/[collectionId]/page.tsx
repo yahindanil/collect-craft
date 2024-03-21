@@ -84,6 +84,7 @@ export default async function CollectionPage({
             item={item}
             collectionId={collection.id}
             isOwner={isOwner}
+            userId={collection.user_id}
           />
         ))}
       </div>

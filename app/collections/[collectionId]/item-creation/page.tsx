@@ -11,7 +11,7 @@ export default async function page({
   const { collectionId } = params;
   const supabase = createClient();
 
-  const { data: collection, error } = await supabase
+  const { data: collection, error: collectionError } = await supabase
     .from("collections")
     .select()
     .eq("id", collectionId)

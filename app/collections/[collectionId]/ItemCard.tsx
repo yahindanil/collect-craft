@@ -2,7 +2,8 @@ import React from "react";
 import { Item } from "@/types/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import ItemCardImage from "./ItemCardImage";
 
 import {
   Card,
@@ -13,21 +14,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function ItemCard({
+export default async function ItemCard({
   item,
   collectionId,
   isOwner,
+  userId,
 }: {
   item: Item;
   collectionId: string;
   isOwner: boolean;
+  userId: string;
 }) {
+  const supabase = createClient();
+
+  const { data: imgUrl, error } = await supabase.storage
+    .from("images")
+    .createSignedUrl(`${userId}/${item.id}`, 60);
+
   return (
     <div>
       <Card className="w-full mx-auto mb-3">
-        {/* <CardHeader>
-          <CardTitle>{collection.name}</CardTitle>
-        </CardHeader> */}
         <CardContent className="p-2">
           <div className="flex justify-between w-full">
             <div>{item.name}</div>
@@ -38,9 +44,8 @@ export default function ItemCard({
             )}
           </div>
         </CardContent>
-        {/* <CardFooter>
-          <div className="flex justify-between w-full"></div>
-        </CardFooter> */}
+
+        {imgUrl && <ItemCardImage imgUrl={imgUrl.signedUrl} />}
       </Card>
     </div>
   );

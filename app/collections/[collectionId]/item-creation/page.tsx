@@ -17,5 +17,7 @@ export default async function page({
     .eq("id", collectionId)
     .single();
 
+  if (!collection) return;
+
   return <ItemCreationForm collection={collection} />;
 }

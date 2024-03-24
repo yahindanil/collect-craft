@@ -19,5 +19,7 @@ export default async function page({
     .eq("id", collectionId)
     .single();
 
+  if (!collection) return;
+
   return <CollectionEditForm collection={collection} />;
 }

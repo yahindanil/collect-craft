@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import ItemCardImage from "./ItemCardImage";
+import { getImgUrl } from "@/app/utils/getImgUrl";
 
 import {
   Card,
@@ -27,9 +28,10 @@ export default async function ItemCard({
 }) {
   const supabase = createClient();
 
-  const { data: imgUrl, error } = await supabase.storage
-    .from("images")
-    .createSignedUrl(`${userId}/${item.id}`, 60);
+  const imgUrl = await getImgUrl({
+    userId,
+    itemId: item.id,
+  });
 
   return (
     <div>
@@ -45,7 +47,7 @@ export default async function ItemCard({
           </div>
         </CardContent>
 
-        {imgUrl && <ItemCardImage imgUrl={imgUrl.signedUrl} />}
+        {imgUrl && <ItemCardImage imgUrl={imgUrl} />}
       </Card>
     </div>
   );

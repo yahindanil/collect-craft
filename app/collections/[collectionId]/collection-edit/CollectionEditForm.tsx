@@ -62,6 +62,22 @@ export default function CollectionEditForm({
   };
 
   const deleteCollectionAndItems = async () => {
+    const { data: itemsToDelete, error: selectError } = await supabase
+      .from("items")
+      .select("id")
+      .eq("collection_id", collection.id);
+
+    itemsToDelete?.map(async (item) => {
+      const { data: itemImages, error: imagesDeleteError } =
+        await supabase.storage
+          .from("images")
+          .remove([`${collection.user_id}/${item.id}`]);
+
+      if (imagesDeleteError) {
+        console.log(imagesDeleteError);
+      }
+    });
+
     const { error: itmesDeleteError } = await supabase
       .from("items")
       .delete()

@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
+import ImgDropzone from "../ImgDropzone";
+import { uploadItemImg } from "@/app/utils/uploadItemImg";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,7 +25,7 @@ export default function CreateItem({
 }) {
   const supabase = createClient();
   const [itemName, setItemName] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (e: any) => {
     setSelectedFile(e.target.files[0]);
@@ -46,13 +48,11 @@ export default function CreateItem({
       .single();
 
     if (selectedFile) {
-      const { data: image, error: imageError } = await supabase.storage
-        .from("images")
-        .upload(`${collection.user_id}/${newItem.id}`, selectedFile);
-
-      if (imageError) {
-        console.error("Error inserting collection:", imageError.message);
-      }
+      await uploadItemImg({
+        selectedFile: selectedFile,
+        itemId: newItem.id,
+        collectionUserId: collection.user_id,
+      });
     }
 
     if (itemInsertError) {
@@ -79,10 +79,9 @@ export default function CreateItem({
                   onChange={(e) => setItemName(e.target.value)}
                 />
               </div>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                accept="image/png, image/jpeg, image/jpg"
+              <ImgDropzone
+                selectedFile={selectedFile}
+                setSelectedFile={setSelectedFile}
               />
             </div>
           </CardContent>

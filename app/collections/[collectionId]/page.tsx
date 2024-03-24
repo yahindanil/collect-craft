@@ -38,7 +38,7 @@ export default async function CollectionPage({
     .eq("collection_id", collectionId);
 
   let isOwner = false;
-  if (user.user && user.user.id === collection.user_id) {
+  if (user.user && user.user.id === collection!.user_id) {
     isOwner = true;
   }
 
@@ -73,7 +73,6 @@ export default async function CollectionPage({
             <Link href={`/collections/${collection.id}/item-creation`}>
               <Button className="w-full">Create item</Button>
             </Link>
-            {/* <CreateItemButton collectionId={collection.id} /> */}
           </div>
         </div>
       )}

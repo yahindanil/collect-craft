@@ -5,6 +5,8 @@ import { Item } from "@/types/types";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import ImgDropzone from "../../ImgDropzone";
+import { uploadItemImg } from "@/app/utils/uploadItemImg";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,12 +19,35 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import ItemCardImage from "../../ItemCardImage";
 
-export default function ItemEditForm({ item }: { item: Item }) {
+export default function ItemEditForm({
+  collectionUserId,
+  item,
+  imgUrl,
+}: {
+  collectionUserId: string;
+  item: Item;
+  imgUrl?: string;
+}) {
   const supabase = createClient();
   const router = useRouter();
-
   const [itemName, setItemName] = useState(item.name);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState(imgUrl);
+  const [imgIsDeleted, setImgIsChanged] = useState(false);
+
+  const handleImgChange = () => {
+    setImageUrl(undefined);
+    setImgIsChanged(true);
+  };
+
+  async function deleteImg() {
+    const { data: itemImages, error: imagesDeleteError } =
+      await supabase.storage
+        .from("images")
+        .remove([`${collectionUserId}/${item.id}`]);
+  }
 
   const editItem = async () => {
     if (!itemName) {
@@ -40,10 +65,23 @@ export default function ItemEditForm({ item }: { item: Item }) {
       console.error("Error editing item:", error.message);
     }
 
+    if (imgIsDeleted) {
+      deleteImg();
+    }
+
+    if (!imageUrl && selectedFile) {
+      await uploadItemImg({
+        selectedFile: selectedFile,
+        itemId: item.id,
+        collectionUserId: collectionUserId,
+      });
+    }
+
     window.location.href = `/collections/${item.collection_id}`;
   };
 
   const deleteItem = async () => {
+    await deleteImg();
     const { error } = await supabase.from("items").delete().eq("id", item.id);
 
     window.location.href = `/collections/${item.collection_id}`;
@@ -67,6 +105,24 @@ export default function ItemEditForm({ item }: { item: Item }) {
                   onChange={(e) => setItemName(e.target.value)}
                 />
               </div>
+              {imageUrl ? (
+                <div>
+                  <ItemCardImage imgUrl={imageUrl} />
+                  <Button
+                    className=""
+                    type="button"
+                    variant="destructive"
+                    onClick={handleImgChange}
+                  >
+                    Delete image
+                  </Button>
+                </div>
+              ) : (
+                <ImgDropzone
+                  selectedFile={selectedFile}
+                  setSelectedFile={setSelectedFile}
+                />
+              )}
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">

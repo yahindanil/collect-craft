@@ -17,7 +17,7 @@ import {
 export default function NavMenuClient({ user }: { user: User }) {
   if (!user) {
     return (
-      <NavigationMenu className="max-w-full my-[10px]">
+      <NavigationMenu className="max-w-full my-1">
         <NavigationMenuList className="flex justify-between">
           <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>
@@ -46,7 +46,7 @@ export default function NavMenuClient({ user }: { user: User }) {
   }
 
   return (
-    <NavigationMenu className="max-w-full my-[10px]">
+    <NavigationMenu className="mx-auto md:mx-0 my-1">
       <NavigationMenuList className="flex justify-between">
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>

@@ -14,7 +14,7 @@ export default async function CollectionCreationButton() {
       {isLoggedIn && (
         <div className="mb-5">
           <Link href={"/collection-creation"}>
-            <Button className="w-full">Create collection</Button>
+            <Button className="w-full md:w-min">Create collection</Button>
           </Link>
         </div>
       )}

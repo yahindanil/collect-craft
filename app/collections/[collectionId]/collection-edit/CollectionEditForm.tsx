@@ -92,7 +92,7 @@ export default function CollectionEditForm({
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper md:max-w-[400px]">
       <Card className="w-[380px] wx-auto mt-[40px]">
         <CardHeader>
           <CardTitle>Edit collection</CardTitle>

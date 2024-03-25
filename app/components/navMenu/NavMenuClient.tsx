@@ -17,7 +17,7 @@ import {
 export default function NavMenuClient({ user }: { user: User }) {
   if (!user) {
     return (
-      <NavigationMenu className="max-w-full my-1">
+      <NavigationMenu className="max-w-full md:mx-0 my-1">
         <NavigationMenuList className="flex justify-between">
           <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>

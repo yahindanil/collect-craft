@@ -7,7 +7,7 @@ export default async function BiggestCollections() {
 
   const { data: collectionsWithCount, error } = await supabase
     .from("collections")
-    .select(`*, items(count)`);
+    .select(`*, items(id)`);
 
   if (error) {
     console.error("Error fetching data:", error);
@@ -16,8 +16,8 @@ export default async function BiggestCollections() {
 
   const sortedCollections = collectionsWithCount
     .sort((a, b) => {
-      const countA = a.items[0].count;
-      const countB = b.items[0].count;
+      const countA = a.items.length;
+      const countB = b.items.length;
 
       return countB - countA;
     })

@@ -37,8 +37,10 @@ export default async function ItemCard({
     <div>
       <Card className="w-full mx-auto mb-3">
         <CardContent className="p-2">
-          <div className="flex justify-between w-full">
-            <div>{item.name}</div>
+          <div className="flex justify-between items-center w-full">
+            <div>
+              <p className="font-medium">{item.name}</p>
+            </div>
             {isOwner && (
               <Link href={`/collections/${collectionId}/item-edit/${item.id}`}>
                 <Button>Edit</Button>

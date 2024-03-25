@@ -88,7 +88,7 @@ export default function ItemEditForm({
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper md:max-w-[400px]">
       <Card className="w-[380px] wx-auto mt-[40px]">
         <CardHeader>
           <CardTitle>Edit item</CardTitle>

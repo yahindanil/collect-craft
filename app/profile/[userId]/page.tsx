@@ -19,11 +19,17 @@ export default async function personalProfilePage({
 
   return (
     <div className="mb-4 wrapper">
-      <h2 className="text-center mb-4 font-bold text-3xl">Your collections</h2>
-      <CreateCollectionButton />
-      {userCollections?.map((collection) => (
-        <CollectionCard key={collection.id} collection={collection} />
-      ))}
+      <div className="md:flex md:items-center">
+        <h2 className="text-center mb-4 font-bold text-3xl md:text-left md:mr-auto">
+          Your collections
+        </h2>
+        <CreateCollectionButton />
+      </div>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {userCollections?.map((collection) => (
+          <CollectionCard key={collection.id} collection={collection} />
+        ))}
+      </div>
     </div>
   );
 }

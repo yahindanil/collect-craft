@@ -55,7 +55,7 @@ export default function CollectionCreationForm({ user }: { user: any }) {
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper md:max-w-[400px]">
       <Card className="w-[380px] wx-auto mt-[40px]">
         <CardHeader>
           <CardTitle>Create collection</CardTitle>
@@ -70,11 +70,13 @@ export default function CollectionCreationForm({ user }: { user: any }) {
                   required
                   value={collectionName}
                   onChange={(e) => setCollectionName(e.target.value)}
+                  maxLength={25}
                 />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="collectionDescription">Description</Label>
                 <Textarea
+                  className="h-[140px]"
                   id="collectionDescription"
                   required
                   value={collectionDescription}

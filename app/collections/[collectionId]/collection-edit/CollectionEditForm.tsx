@@ -24,6 +24,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Collection } from "@/types/types";
 
 export default function CollectionEditForm({
@@ -93,7 +102,7 @@ export default function CollectionEditForm({
 
   return (
     <div className="wrapper md:max-w-[400px]">
-      <Card className="w-[380px] wx-auto mt-[40px]">
+      <Card className="max-w-[380px] wx-auto mt-[40px]">
         <CardHeader>
           <CardTitle>Edit collection</CardTitle>
         </CardHeader>
@@ -107,6 +116,7 @@ export default function CollectionEditForm({
                   required
                   value={collectionName}
                   onChange={(e) => setCollectionName(e.target.value)}
+                  maxLength={25}
                 />
               </div>
               <div className="flex flex-col space-y-1.5">
@@ -140,14 +150,28 @@ export default function CollectionEditForm({
                 Cancel
               </Button>
             </Link>
-            <Button
-              className="w-[80px]"
-              type="button"
-              variant="destructive"
-              onClick={deleteCollectionAndItems}
-            >
-              Delete
-            </Button>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="destructive">Delete </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Delete collection</DialogTitle>
+                  <DialogDescription>
+                    Are you sure you want to delete this collection?
+                  </DialogDescription>
+                </DialogHeader>
+                <Button
+                  className="w-[80px]"
+                  type="button"
+                  variant="destructive"
+                  onClick={deleteCollectionAndItems}
+                >
+                  Delete
+                </Button>
+              </DialogContent>
+            </Dialog>
             <Button className="w-[80px]" type="button" onClick={editCollection}>
               Edit
             </Button>

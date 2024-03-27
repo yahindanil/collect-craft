@@ -20,8 +20,10 @@ import {
 
 export default function CreateItem({
   collection,
+  userId,
 }: {
   collection: { id: string; user_id: string };
+  userId: string;
 }) {
   const supabase = createClient();
   const [itemName, setItemName] = useState("");
@@ -42,6 +44,7 @@ export default function CreateItem({
         {
           name: itemName,
           collection_id: collection.id,
+          user_id: userId,
         },
       ])
       .select()
@@ -63,7 +66,7 @@ export default function CreateItem({
 
   return (
     <div className="wrapper md:max-w-[400px]">
-      <Card className="w-[380px] wx-auto mt-[40px]">
+      <Card className="max-w-[380px] wx-auto mt-[40px]">
         <CardHeader>
           <CardTitle>Create item</CardTitle>
         </CardHeader>
@@ -71,12 +74,13 @@ export default function CreateItem({
           <CardContent>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="collectionName">Collection name</Label>
+                <Label htmlFor="itemName">Item name</Label>
                 <Input
-                  id="collectionName"
+                  id="itemName"
                   required
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
+                  maxLength={20}
                 />
               </div>
               <ImgDropzone

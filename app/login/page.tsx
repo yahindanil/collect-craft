@@ -15,8 +15,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function LoginPage() {
   return (
-    <div className="wrapper">
-      <Tabs defaultValue="login" className="w-[400px]">
+    <div className="wrapper md:max-w-[400px]">
+      <Tabs defaultValue="login" className="max-w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="login">Login</TabsTrigger>
           <TabsTrigger value="register">Register</TabsTrigger>

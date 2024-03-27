@@ -2,6 +2,7 @@ import React from "react";
 import ItemCreationForm from "./ItemCreationForm";
 import { createClient } from "@/utils/supabase/server";
 import { Collection } from "@/types/types";
+import { redirect } from "next/navigation";
 
 export default async function page({
   params,
@@ -17,7 +18,11 @@ export default async function page({
     .eq("id", collectionId)
     .single();
 
-  if (!collection) return;
+  const { data: userData , error: userError } = await supabase.auth.getUser();
 
-  return <ItemCreationForm collection={collection} />;
+  if (userError || !userData?.user || !collection) {
+    redirect("/");
+  }
+
+  return <ItemCreationForm collection={collection} userId={userData.user.id}/>;
 }

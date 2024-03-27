@@ -11,16 +11,18 @@ export default async function page({ params }: { params: { itemId: string } }) {
 
   const { data: item, error } = await supabase
     .from("items")
-    .select("*,collections(user_id)")
+    .select()
     .eq("id", itemId)
     .single();
 
-  if (!item || !item.collections || !item.collections.user_id) return;
+  if (!item) return;
 
   const imgUrl = await getImgUrl({
-    userId: item.collections.user_id,
+    userId: item.user_id,
     itemId: item.id,
   });
 
-  return <ItemEditForm item={item} imgUrl={imgUrl} collectionUserId={item.collections.user_id} />;
+  return (
+    <ItemEditForm item={item} imgUrl={imgUrl} collectionUserId={item.user_id} />
+  );
 }

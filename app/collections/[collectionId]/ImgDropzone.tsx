@@ -49,7 +49,7 @@ export default function ImgDropzone({
           type="file"
           className="opacity-0 absolute hidden"
           onChange={handleFileChange}
-          accept="image/, image/, image/"
+          accept="image/"
         />
       </label>
     </div>

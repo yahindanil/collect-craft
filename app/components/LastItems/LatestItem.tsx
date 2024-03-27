@@ -34,7 +34,7 @@ export default async function LatestItem({
       <Card className="w-full mx-auto mb-3 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none">
         <CardContent className="p-2">
           <div className="flex justify-between w-full">
-            <div>{itemName}</div>
+            <p className="font-semibold">{itemName}</p>
             <CollectionNameServer collectionId={itemCollectionId} />
           </div>
         </CardContent>

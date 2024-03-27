@@ -45,11 +45,13 @@ export async function signup(formData: FormData) {
     // The registration still works btw.
     // redirect("/error");
 
-    // if(error.message == "")
+    if (error.message == "Email rate limit exceeded") {
+      redirect("/message");
+    }
 
     redirect("/error");
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/message");
 }

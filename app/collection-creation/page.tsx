@@ -6,11 +6,9 @@ export default async function CollectionCreation() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
 
-  if (error || !data?.user) {
+  if (error || !data?.user || !data?.user?.email) {
     redirect("/");
   }
 
-  const user = data.user;
-
-  return <CollectionCreationForm user={user} />;
+  return <CollectionCreationForm userId={data.user.id} userEmail={data.user.email} />;
 }

@@ -24,21 +24,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { User } from "@/types/types";
 
 export default function CollectionCreationForm({
-  user,
+  userId,
+  userEmail,
 }: {
-  user: { email: string; id: string };
+  userId: string;
+  userEmail: string;
 }) {
   const supabase = createClient();
   const [collectionName, setCollectionName] = useState("");
   const [collectionDescription, setCollectionDescription] = useState("");
   const [category, setCategory] = useState("");
-  const username = user.email.split("@")[0];
+
+  const username = userEmail.split("@")[0];
 
   const insertCollection = async () => {
-    if (!collectionName || !collectionDescription || !category || !user) {
+    if (!collectionName || !collectionDescription || !category || !userId) {
       return;
     }
 
@@ -49,7 +51,7 @@ export default function CollectionCreationForm({
           name: collectionName,
           description: collectionDescription,
           category: category,
-          user_id: user.id,
+          user_id: userId,
           username: username,
         },
       ])

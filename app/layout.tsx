@@ -19,9 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header className=" border-b-2 border-solid border-gray-300 mb-2">
-          <div className="wrapper">
-            <NavMenu />
-          </div>
+          <NavMenu />
         </header>
         {children}
       </body>

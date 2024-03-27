@@ -5,7 +5,12 @@ import NavMenuClient from "./NavMenuClient";
 export default async function NavMenuServer() {
   const supabase = createClient();
 
-  const { data: user, error } = await supabase.auth.getUser();
+  const { data: userData, error } = await supabase.auth.getUser();
 
-  return <NavMenuClient user={user.user} />;
+  let userName = "username";
+  if (userData.user?.email) {
+    userName = userData.user.email.split("@")[0];
+  }
+
+  return <NavMenuClient user={userData.user} userName={userName} />;
 }

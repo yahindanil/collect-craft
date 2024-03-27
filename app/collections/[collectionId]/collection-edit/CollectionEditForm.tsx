@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { categories } from "@/app/utils/collectionCategories";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -135,10 +136,11 @@ export default function CollectionEditForm({
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="stuff">Stuff</SelectItem>
-                    <SelectItem value="books">Books</SelectItem>
-                    <SelectItem value="signs">Signs</SelectItem>
-                    <SelectItem value="silverware">Silverware</SelectItem>
+                    {categories.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

@@ -9,5 +9,5 @@ export default function CollectionNameClient({
     return;
   }
 
-  return <div>{collectionName.name}</div>;
+  return <div className="text-end">{collectionName.name}</div>;
 }

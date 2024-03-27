@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
+import { categories } from "../utils/collectionCategories";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +26,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { User } from "@/types/types";
 
-export default function CollectionCreationForm({ user }: { user: any }) {
+export default function CollectionCreationForm({
+  user,
+}: {
+  user: { email: string; id: string };
+}) {
   const supabase = createClient();
   const [collectionName, setCollectionName] = useState("");
   const [collectionDescription, setCollectionDescription] = useState("");
@@ -37,21 +42,25 @@ export default function CollectionCreationForm({ user }: { user: any }) {
       return;
     }
 
-    const { error } = await supabase.from("collections").insert([
-      {
-        name: collectionName,
-        description: collectionDescription,
-        category: category,
-        user_id: user.id,
-        username: username,
-      },
-    ]);
+    const { data: newCollection, error } = await supabase
+      .from("collections")
+      .insert([
+        {
+          name: collectionName,
+          description: collectionDescription,
+          category: category,
+          user_id: user.id,
+          username: username,
+        },
+      ])
+      .select()
+      .single();
 
     if (error) {
       console.error("Error inserting collection:", error.message);
     }
 
-    window.location.href = `/profile/${user.id}`;
+    window.location.href = `/collections/${newCollection.id}`;
   };
 
   return (
@@ -90,10 +99,11 @@ export default function CollectionCreationForm({ user }: { user: any }) {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="stuff">Stuff</SelectItem>
-                    <SelectItem value="books">Books</SelectItem>
-                    <SelectItem value="signs">Signs</SelectItem>
-                    <SelectItem value="silverware">Silverware</SelectItem>
+                    {categories.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

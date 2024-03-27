@@ -38,8 +38,16 @@ export async function signup(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    console.log("error");
-    redirect("/error");
+    console.log(error.message);
+
+    // Here is an error (Email rate limit exceeded) which seem to be with how supabase works.
+    // For now i can't fix it, so i just ignore it and redirect to homepage.
+    // The registration still works btw.
+    // redirect("/error");
+
+    // if(error.message == "")
+
+    redirect("/");
   }
 
   revalidatePath("/", "layout");

@@ -45,7 +45,7 @@ export default function LoginPage() {
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="passwordLogin">Password:</Label>
                     <Input
-                      id="passwordLoginLogin"
+                      id="passwordLogin"
                       placeholder="*********"
                       name="passwordLogin"
                       type="password"

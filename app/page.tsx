@@ -1,5 +1,5 @@
 import React from "react";
-import LatestItems from "./components/LastItems/LatestItems";
+import LatestItemsList from "./components/LastItems/LatestItemsList";
 import BiggestCollections from "./components/BiggestCollections";
 
 export default async function Home() {
@@ -7,9 +7,9 @@ export default async function Home() {
     <div>
       <header className="wrapper"></header>
       <main className="wrapper">
-        <div>
+        <div className="md:grid md:grid-cols-2 md:gap-7 lg:grid-cols-3">
           <BiggestCollections />
-          <LatestItems />
+          <LatestItemsList />
         </div>
       </main>
     </div>

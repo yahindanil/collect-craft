@@ -21,7 +21,7 @@ export default async function personalProfilePage({
     <div className="mb-4 wrapper">
       <div className="md:flex md:items-center">
         <h2 className="text-center mb-4 font-bold text-3xl md:text-left md:mr-auto">
-          Your collections
+          My collections
         </h2>
         <CreateCollectionButton />
       </div>

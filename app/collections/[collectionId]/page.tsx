@@ -45,7 +45,7 @@ export default async function CollectionPage({
   if (!collection) {
     return (
       <div className="wrapper">
-        <h1>No such collection</h1>
+        <h2>No such collection</h2>
       </div>
     );
   }

@@ -103,7 +103,7 @@ export default function ItemEditForm({
                   required
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
-                  maxLength={40}
+                  maxLength={55}
                 />
               </div>
               {imageUrl ? (

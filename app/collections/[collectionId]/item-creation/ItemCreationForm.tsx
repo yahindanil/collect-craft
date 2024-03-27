@@ -28,12 +28,16 @@ export default function CreateItem({
   const supabase = createClient();
   const [itemName, setItemName] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFileChange = (e: any) => {
     setSelectedFile(e.target.files[0]);
   };
 
   const insertItem = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     if (!itemName) {
       return;
     }
@@ -80,7 +84,7 @@ export default function CreateItem({
                   required
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
-                  maxLength={40}
+                  maxLength={55}
                 />
               </div>
               <ImgDropzone
@@ -95,7 +99,12 @@ export default function CreateItem({
                 Cancel
               </Button>
             </Link>
-            <Button className="w-[80px]" type="button" onClick={insertItem}>
+            <Button
+              className="w-[80px]"
+              type="button"
+              disabled={isSubmitting}
+              onClick={insertItem}
+            >
               Create
             </Button>
           </CardFooter>

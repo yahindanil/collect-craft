@@ -36,10 +36,14 @@ export default function CollectionCreationForm({
   const [collectionName, setCollectionName] = useState("");
   const [collectionDescription, setCollectionDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const username = userEmail.split("@")[0];
 
   const insertCollection = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     if (!collectionName || !collectionDescription || !category || !userId) {
       return;
     }
@@ -115,7 +119,11 @@ export default function CollectionCreationForm({
             <Link href={"/collections"}>
               <Button variant="outline">Cancel</Button>
             </Link>
-            <Button type="button" onClick={insertCollection}>
+            <Button
+              type="button"
+              disabled={isSubmitting}
+              onClick={insertCollection}
+            >
               Create
             </Button>
           </CardFooter>

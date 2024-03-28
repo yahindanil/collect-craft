@@ -28,15 +28,3 @@ export default async function UserAvatar() {
     </Link>
   );
 }
-
-// Version of the code with the Avatar and The name
-// return (
-//   <div className="flex items-center gap-2">
-//     <Avatar>
-//       {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
-//       <AvatarFallback>{firstLetter}</AvatarFallback>
-//     </Avatar>
-
-//     <p>{username}</p>
-//   </div>
-// );

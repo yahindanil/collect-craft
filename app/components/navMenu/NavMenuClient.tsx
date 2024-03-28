@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { User } from "@/types/types";
 import { createClient } from "@/utils/supabase/client";

@@ -17,6 +17,24 @@ export default async function personalProfilePage({
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
+  if (!userCollections?.length) {
+    return (
+      <div className="mb-4 wrapper">
+        <div className="md:flex md:items-center mb-[30px]">
+          <h2 className="text-center mb-4 font-bold text-3xl md:text-left md:mr-auto">
+            My collections
+          </h2>
+          <CreateCollectionButton />
+        </div>
+        <div>
+          <p className="text-center font-semibold text-lg">
+            You haven&apos;t created any collections yet
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mb-4 wrapper">
       <div className="md:flex md:items-center">

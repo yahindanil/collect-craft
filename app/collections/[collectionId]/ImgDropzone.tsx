@@ -35,9 +35,9 @@ export default function ImgDropzone({
             />
           </svg>
           <p className="mb-2 text-sm text-gray-500">
-            <span className="font-semibold">Click to upload</span>
+            <span className="font-semibold">Click to upload an image</span>
           </p>
-          <p className="text-xs text-gray-500 mb-2">PNG, JPEG, JPG</p>
+          <p className="text-xs text-gray-500 mb-2">PNG, JPEG, JPG, WEBP</p>
           {selectedFile && (
             <p className="max-w-[280px] break-words text-center">
               {selectedFile.name}
@@ -49,7 +49,7 @@ export default function ImgDropzone({
           type="file"
           className="opacity-0 absolute hidden"
           onChange={handleFileChange}
-          accept="image/"
+          accept="image/png, image/jpeg, image/jpg, image/webp"
         />
       </label>
     </div>

@@ -5,7 +5,7 @@ import CollectionNameClient from "./CollectionNameClient";
 export default async function CollectionNameServer({
   collectionId,
 }: {
-  collectionId: any;
+  collectionId: string;
 }) {
   const supabase = createClient();
 

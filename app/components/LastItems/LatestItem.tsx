@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import CollectionNameServer from "./CollectionNameServer";
 import { getImgUrl } from "@/app/utils/getImgUrl";
+import UsernameServer from "./UsernameServer";
 
 import {
   Card,
@@ -40,6 +41,8 @@ export default async function LatestItem({
         </CardContent>
 
         {imgUrl && <ItemCardImage imgUrl={imgUrl} />}
+
+        <UsernameServer collectionId={itemCollectionId} />
       </Card>
     </Link>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createClient } from "@/utils/supabase/server";
 import { Collection } from "@/types/types";
 import Link from "next/link";
@@ -24,7 +24,7 @@ export default async function CollectionPage({
   const { collectionId } = params;
   const supabase = createClient();
 
-  const { data: user, error } = await supabase.auth.getUser();
+  const { data: user, error: userError } = await supabase.auth.getUser();
 
   const { data: collection, error: collectionError } = await supabase
     .from("collections")

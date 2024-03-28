@@ -31,7 +31,6 @@ export default function ItemEditForm({
   imgUrl?: string;
 }) {
   const supabase = createClient();
-  const router = useRouter();
   const [itemName, setItemName] = useState(item.name);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(imgUrl);

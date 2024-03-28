@@ -85,7 +85,7 @@ export default function CollectionCreationForm({
                   required
                   value={collectionName}
                   onChange={(e) => setCollectionName(e.target.value)}
-                  maxLength={25}
+                  maxLength={35}
                 />
               </div>
               <div className="flex flex-col space-y-1.5">

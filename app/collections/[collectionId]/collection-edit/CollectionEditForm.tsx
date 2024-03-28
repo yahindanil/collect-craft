@@ -42,7 +42,6 @@ export default function CollectionEditForm({
   collection: Collection;
 }) {
   const supabase = createClient();
-  const router = useRouter();
 
   const [collectionName, setCollectionName] = useState(collection.name);
   const [collectionDescription, setCollectionDescription] = useState(
@@ -117,7 +116,7 @@ export default function CollectionEditForm({
                   required
                   value={collectionName}
                   onChange={(e) => setCollectionName(e.target.value)}
-                  maxLength={25}
+                  maxLength={35}
                 />
               </div>
               <div className="flex flex-col space-y-1.5">

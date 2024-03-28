@@ -21,7 +21,7 @@ export default function RootLayout({
         <header className=" border-b-2 border-solid border-gray-300 mb-2">
           <NavMenu />
         </header>
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

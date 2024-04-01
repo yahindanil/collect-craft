@@ -122,6 +122,7 @@ export default function CollectionEditForm({
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="collectionDescription">Description</Label>
                 <Textarea
+                  className="h-[140px]"
                   id="collectionDescription"
                   required
                   value={collectionDescription}

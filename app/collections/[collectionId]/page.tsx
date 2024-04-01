@@ -50,91 +50,61 @@ export default async function CollectionPage({
     );
   }
 
-  if (items === undefined || items?.length == 0) {
-    return (
-      <div className="wrapper md:max-w-[400px]">
-        <h1 className="text-center mb-4 font-bold text-3xl">
-          {collection.name}
-        </h1>
-        <div className="">
-          <div className="controll-panel">
-            <div>
-              {isOwner && (
-                <div className="">
-                  <div className="mb-3">
-                    <Link
-                      href={`/collections/${collection.id}/collection-edit`}
-                    >
-                      <Button className="w-full">Edit collection</Button>
-                    </Link>
-                  </div>
-                  <div className="mb-3">
-                    <Link href={`/collections/${collection.id}/item-creation`}>
-                      <Button className="w-full">Create item</Button>
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div>
-              <Card className="w-full mx-auto mb-3">
-                <CardHeader>
-                  <CardTitle>Description</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>{collection.description}</CardDescription>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
+  const renderControlPanel = (collection: { id: string }) => (
+    <div className="lg:grid lg:gri lg:gap-3 lg:grid-cols-2">
+      <div className="mb-3">
+        <Link href={`/collections/${collection.id}/collection-edit`}>
+          <Button className="w-full">Edit collection</Button>
+        </Link>
       </div>
-    );
-  }
+      <div className="mb-3">
+        <Link href={`/collections/${collection.id}/item-creation`}>
+          <Button className="w-full">Create item</Button>
+        </Link>
+      </div>
+    </div>
+  );
 
   return (
     <div className="wrapper">
       <h1 className="text-center mb-4 font-bold text-3xl">{collection.name}</h1>
-      <div className="md:flex md:flex-row-reverse">
-        <div className="controll-panel md:w-1/2 md:ml-4">
-          <div>
-            {isOwner && (
-              <div className=" lg:grid lg:gri lg:gap-3 lg:grid-cols-2">
-                <div className="mb-3">
-                  <Link href={`/collections/${collection.id}/collection-edit`}>
-                    <Button className="w-full">Edit collection</Button>
-                  </Link>
+      <div className={`md:flex ${items?.length ? "md:flex-row-reverse" : ""}`}>
+        <div className="md:w-1/2 md:ml-4">
+          {isOwner && <div>{renderControlPanel(collection)}</div>}
+
+          <Card className="w-full mx-auto mb-3">
+            <CardHeader>
+              <CardTitle>Description</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>{collection.description}</CardDescription>
+            </CardContent>
+            <CardFooter className="">
+              <div className="flex justify-between w-full">
+                <div>
+                  <p>{collection.category}</p>
                 </div>
-                <div className="mb-3">
-                  <Link href={`/collections/${collection.id}/item-creation`}>
-                    <Button className="w-full">Create item</Button>
-                  </Link>
+                <div>
+                  <p>{collection.username}</p>
                 </div>
               </div>
-            )}
-          </div>
-          <div>
-            <Card className="w-full mx-auto mb-3">
-              <CardHeader>
-                <CardTitle>Description</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>{collection.description}</CardDescription>
-              </CardContent>
-            </Card>
-          </div>
+            </CardFooter>
+          </Card>
         </div>
-        <div className="items-list md:w-1/2">
-          {items?.map((item) => (
-            <ItemCard
-              key={item.id}
-              item={item}
-              collectionId={collection.id}
-              isOwner={isOwner}
-              userId={collection.user_id}
-            />
-          ))}
-        </div>
+
+        {items && items.length > 0 && (
+          <div className="items-list md:w-1/2">
+            {items.map((item) => (
+              <ItemCard
+                key={item.id}
+                item={item}
+                collectionId={collection.id}
+                isOwner={isOwner}
+                userId={collection.user_id}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

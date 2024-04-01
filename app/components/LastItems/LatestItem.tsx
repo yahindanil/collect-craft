@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import CollectionNameServer from "./CollectionNameServer";
 import { getImgUrl } from "@/app/utils/getImgUrl";
-import UsernameServer from "./UsernameServer";
+import LastItemFooter from "./LastItemFooter";
 
 import {
   Card,
@@ -34,15 +33,14 @@ export default async function LatestItem({
     <Link href={`/collections/${itemCollectionId}`}>
       <Card className="w-full mx-auto mb-3 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none">
         <CardContent className="p-2">
-          <div className="flex justify-between w-full">
+          <div>
             <p className="font-semibold">{itemName}</p>
-            <CollectionNameServer collectionId={itemCollectionId} />
           </div>
         </CardContent>
 
         {imgUrl && <ItemCardImage imgUrl={imgUrl} />}
 
-        <UsernameServer collectionId={itemCollectionId} />
+        <LastItemFooter collectionId={itemCollectionId} />
       </Card>
     </Link>
   );

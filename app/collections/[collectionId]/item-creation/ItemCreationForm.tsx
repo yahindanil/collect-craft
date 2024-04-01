@@ -30,10 +30,6 @@ export default function CreateItem({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleFileChange = (e: any) => {
-    setSelectedFile(e.target.files[0]);
-  };
-
   const insertItem = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);

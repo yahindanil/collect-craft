@@ -11,7 +11,7 @@ export async function getImgUrl({
 
   const { data: imgUrl, error } = await supabase.storage
     .from("images")
-    .createSignedUrl(`${userId}/${itemId}`, 60, {
+    .createSignedUrl(`${userId}/${itemId}`, 3600, {
       transform: {
         width: 100,
       },
